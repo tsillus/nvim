@@ -42,6 +42,9 @@ keymap("n", "<C-k>", "<C-w>k", noremap)
 keymap("n", "<C-l>", "<C-w>l", noremap)
 
 
+-- " format code
+keymap("n", "<A-c>", "<md>vim.lsp.buf.format()<cr>", noremap)
+
 -- " Switch Buffer with window keys
 keymap("n", "<C-Up>",               ":resize -2<CR>", noremap)
 keymap("n", "<C-Down>",             ":resize +2<CR>", noremap)
@@ -54,6 +57,11 @@ keymap("n", "<S-h>",  ":bprevious<CR>", noremap)
 
 keymap("n", "<leader>e", ":Lex 30<cr>", noremap)
 
+-- " using Telescope
+
+keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", noremap)
+keymap("n", "<leader>F", "<cmd>Telescope grep_string<cr>", noremap)
+keymap("n", "<leader><A-f>", "<cmd>Telescope live_grep<cr>", noremap)
 
 -- " --------------------------------------   
 -- " TERMINAL mode

@@ -49,10 +49,9 @@ return packer.startup(function(use)
     use 'preservim/nerdtree'
 
     -- Language Server and auto-completion
-    -- use 'prabirshrestha/vim-lsp'
-    -- use 'mattn/vim-lsp-settings'
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
+    use 'RRethy/vim-illuminate'
 
     -- auto completion
     use 'hrsh7th/nvim-cmp'
@@ -61,18 +60,21 @@ return packer.startup(function(use)
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'saadparwaiz1/cmp_luasnip'
+    use 'windwp/nvim-autopairs'
 
     -- snippet engine
     use "L3MON4D3/LuaSnip"
     -- use "rafamadriz/friendly-snippets"
 
     use 'dense-analysis/ale'
-    use 'luochen1990/rainbow'
 
     use 'kyazdani42/nvim-web-devicons' -- Recommended (for coloured icons)
     -- use 'ryanoasis/vim-devicons' Icons without colours
     use { 'akinsho/bufferline.nvim', tag= 'v2.*', }
+    use 'nvim-telescope/telescope.nvim'
 
+    use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
+    use 'p00f/nvim-ts-rainbow'
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end

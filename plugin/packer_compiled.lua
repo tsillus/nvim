@@ -129,6 +129,11 @@ _G.packer_plugins = {
     path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\nerdtree",
     url = "https://github.com/preservim/nerdtree"
   },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\nvim-cmp",
@@ -143,6 +148,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-ts-rainbow"] = {
+    loaded = true,
+    path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\nvim-ts-rainbow",
+    url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -169,15 +184,20 @@ _G.packer_plugins = {
     path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\popup.nvim",
     url = "https://github.com/nvim-lua/popup.nvim"
   },
-  rainbow = {
+  ["telescope.nvim"] = {
     loaded = true,
-    path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\rainbow",
-    url = "https://github.com/luochen1990/rainbow"
+    path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim",
+    url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["toggleterm.nvim"] = {
     loaded = true,
     path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
+  },
+  ["vim-illuminate"] = {
+    loaded = true,
+    path = "D:\\nvim\\nvim-data\\site\\pack\\packer\\start\\vim-illuminate",
+    url = "https://github.com/RRethy/vim-illuminate"
   }
 }
 

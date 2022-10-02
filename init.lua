@@ -5,6 +5,8 @@ for _, source in ipairs {
     "user.colorscheme",
     "user.cmp",
     "user.lsp",
+    "user.treesitter",
+    "user.autopairs",
     -- "core.options",
     -- "core.bootstrap",
     -- "core.plugins",

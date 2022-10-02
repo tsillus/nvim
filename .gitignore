@@ -1,8 +1,1 @@
-.vscode/
-config/
-data/
-nvim-data/plugged/
-nvim-data/shada/
-nvim-data/swap/
-
-.netrwhist
+shada/
