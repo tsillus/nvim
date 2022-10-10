@@ -7,10 +7,9 @@ end
 npairs.setup {
     check_ts = true,
     ts_config = {
-                java = false,
-                lua = { "string", "source" },
-        javascript = { "string", "template_string" },
         java = false,
+        lua = { "string", "source" },
+        javascript = { "string", "template_string" },
     },
     disable_filetype = { "TelescopePrompt", "spectre_panel" },
     fast_wrap = {

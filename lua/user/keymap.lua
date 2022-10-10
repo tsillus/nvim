@@ -41,7 +41,7 @@ keymap("n", "<C-j>", "<C-w>j", noremap)
 keymap("n", "<C-k>", "<C-w>k", noremap)
 keymap("n", "<C-l>", "<C-w>l", noremap)
 
-
+keymap("n", "<S-CR>", "<Esc>o", noremap)
 -- " format code
 keymap("n", "<A-c>", "<md>vim.lsp.buf.format()<cr>", noremap)
 
@@ -55,13 +55,21 @@ keymap("n", "<C-Right>",  ":vertical :resize +2<CR>", noremap)
 keymap("n", "<S-l>",  ":bnext<CR>", noremap)
 keymap("n", "<S-h>",  ":bprevious<CR>", noremap)
 
-keymap("n", "<leader>e", ":Lex 30<cr>", noremap)
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", noremap)
+keymap("n", "<leader>b", ":bdelete<cr>", noremap) -- close current buffer
+
 
 -- " using Telescope
 
-keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", noremap)
-keymap("n", "<leader>F", "<cmd>Telescope grep_string<cr>", noremap)
-keymap("n", "<leader><A-f>", "<cmd>Telescope live_grep<cr>", noremap)
+keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", noremap)
+keymap("n", "<leader>ft", "<cmd>Telescope grep_string<cr>", noremap)
+keymap("n", "<leader>fp", "<cmd>Telescope projects<cr>", noremap)
+keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", noremap)
+
+
+-- Git
+
+keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", noremap)
 
 -- " --------------------------------------   
 -- " TERMINAL mode

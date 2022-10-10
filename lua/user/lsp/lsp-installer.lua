@@ -16,5 +16,11 @@ end
         print "Lua LSP ready."
     end
 
+    if server.name == "ols" then
+        local odin_opts = require("user.lsp.ols")
+        opts = vim.tbl_deep_extend("force", odin_opts, opts)
+        print "OLS LSP ready."
+    end
+
     server:setup(opts)
  end)

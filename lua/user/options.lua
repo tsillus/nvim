@@ -47,7 +47,7 @@ vim.opt.scrolloff     = 8
 vim.opt.sidescrolloff = 8
 
 -- Visuals
-vim.opt.guifont = "Source_Code_Pro:h12"
+vim.opt.guifont = "JetBrainsMono:h17"
 vim.opt.termguicolors = true
 
 -- " TODO: maybe move to different file? 

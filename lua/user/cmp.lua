@@ -19,33 +19,33 @@ local check_backspace = function()
 end
 
 -- TODO: add kind_icons  (see YT Neovim - Completion Tutorial 100% Lua)
--- local kind_icons = {
---    Text = "T",
---    Method = "m",
---    Function = "f()",
---    Constructor = "new",
---    Field = "",
---    Variable = "",
---    Class = "",
---    Interface = "",
---    Module = "",
---    Property = "",
---    Unit = "",
---    Value = "",
---    Enum = "",
---    Keyword = "",
---    Snippet = "",
---    Color = "",
---    File = "",
---    Reference = "",
---    Folder = "",
---    EnumMember = "",
---    Constant = "",
---    Struct = "",
---    Event = "",
---    Operator = "",
---    TypeParameter = "",
---  }
+local kind_icons = {
+   Text = "",
+   Method = "",
+   Function = "",
+   Constructor = "",
+   Field = "",
+   Variable = "",
+   Class = "",
+   Interface = "",
+   Module = "",
+   Property = "",
+   Unit = "",
+   Value = "",
+   Enum = "",
+   Keyword = "",
+   Snippet = "",
+   Color = "",
+   File = "",
+   Reference = "",
+   Folder = "",
+   EnumMember = "",
+   Constant = "",
+   Struct = "",
+   Event = "",
+   Operator = "",
+   TypeParameter = "",
+}
 
 cmp.setup{
     snippet = {
@@ -65,7 +65,7 @@ cmp.setup{
             c = cmp.mapping.close(),
         },
         ["<CR>"] = cmp.mapping.confirm { select = true },
-        ["<Tab>"] = cmp.mapping( function(fallback) 
+        ["<Tab>"] = cmp.mapping( function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expandable() then
@@ -84,13 +84,14 @@ cmp.setup{
             elseif luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             else
-                fallback()
+                callback()
             end
         end, {"i", "s"}),
     },
-    formatting = { 
-        fields = { "abbr", "menu" },
+    formatting = {
+        fields = {"kind", "abbr", "menu" },
         format = function(entry, vim_item)
+            vim_item.kind = kind_icons[vim_item.kind]
             vim_item.menu = ({
                 luasnip = "[Snippet]",
                 buffer = "[Buffer]",
