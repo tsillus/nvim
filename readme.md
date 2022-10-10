@@ -22,6 +22,14 @@ You probably already have it. But in case you don't: git is a version control sy
 choco install git
 ```
 
+### lazygit
+
+A separate command line tool to deal with git. Better than most nvim git plugins.
+
+```
+choco install lazygit
+```
+
 
 ## Installing Dependencies
 

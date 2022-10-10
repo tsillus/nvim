@@ -9,6 +9,8 @@ vim.g.maplocalleader = " "
 -- INSERT mode
 
 keymap("i", "<C-c>", "<Esc>", noremap)
+keymap("i", "<C-o>", "<Esc>o", noremap)
+
 
 -- " --------------------------------------
 -- " VISUAL mode
@@ -41,7 +43,6 @@ keymap("n", "<C-j>", "<C-w>j", noremap)
 keymap("n", "<C-k>", "<C-w>k", noremap)
 keymap("n", "<C-l>", "<C-w>l", noremap)
 
-keymap("n", "<S-CR>", "<Esc>o", noremap)
 -- " format code
 keymap("n", "<A-c>", "<md>vim.lsp.buf.format()<cr>", noremap)
 

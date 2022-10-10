@@ -66,6 +66,8 @@ return packer.startup(function(use)
     use ('saadparwaiz1/cmp_luasnip')
     use ('windwp/nvim-autopairs')
 
+    use ('folke/which-key.nvim')
+
     -- snippet engine
     use ("L3MON4D3/LuaSnip")
     -- use "rafamadriz/friendly-snippets"
@@ -76,8 +78,9 @@ return packer.startup(function(use)
     use ('akinsho/toggleterm.nvim')
 
 
-    use { 'akinsho/bufferline.nvim', tag= 'v2.*', }
+    use ({ 'akinsho/bufferline.nvim', tag= 'v2.*', })
     use ('nvim-telescope/telescope.nvim')
+    use ('ahmedkhalf/project.nvim')
 
     use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
     use ('p00f/nvim-ts-rainbow')
