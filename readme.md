@@ -72,8 +72,6 @@ However, with some compilers treesitter might still run into erros. Using LLVM a
 choco install llvm
 ```
 
-
-
 ### Cygwin
 
 autocomplete uses `man` to call manual pages. Windows doesn't have `man`, so you need to install it:
