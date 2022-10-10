@@ -2,7 +2,7 @@
 
 vim.opt.clipboard = "unnamed"
 vim.opt.cmdheight=1
-vim.opt.laststaus=3
+vim.opt.laststatus=3
 
 -- vim.opt.completeopt = {"menuone", "noselect" }
 vim.opt.fileencoding="utf-8"
