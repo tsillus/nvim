@@ -8,7 +8,7 @@ project.setup({
 	detection_methods = { "pattern" },
 
 	-- patterns used to detect root dir, when **"pattern"** is in detection_methods
-	patterns = { 
+	patterns = {
         ".git", "Makefile", "package.json",
         "^projects",
         ">odin", ">python" },

@@ -34,6 +34,7 @@ return packer.startup(function(use)
     use ("wbthomason/packer.nvim")
     use ("nvim-lua/popup.nvim")
     use ("nvim-lua/plenary.nvim")
+     use { "lewis6991/impatient.nvim" }
     use ('kyazdani42/nvim-web-devicons') -- Recommended (for coloured icons)
     use ({"nvim-lualine/lualine.nvim",
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
