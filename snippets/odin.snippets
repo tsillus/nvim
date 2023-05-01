@@ -1,0 +1,32 @@
+# unit test
+snippet @test
+    @(test)
+    test_${1:void} :: proc(tester: ^testing.T) {
+        ${0:void}
+    }
+
+
+snippet expv
+	testing.expect_value(tester, ${1}, ${0})
+
+
+snippet exp
+	testing.expect(tester, ${1}, "${0}")
+
+snippet fn
+	${1:void} :: proc(${2:void}) {
+
+	}
+
+snippet fnr
+	${1:Procedure Name} :: proc(${2:Parameters}) -> (${3:Return Values}) {
+	  ${0}
+	  return
+	}
+
+snippet strct
+	${1:Struct Name} :: struct {
+		${2:Field Name} : ${0: Type}
+    }
+
+
