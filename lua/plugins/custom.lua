@@ -31,7 +31,8 @@ return {
     },
 
     -- colorschemes
-    { "ellisonleao/gruvbox.nvim" },
+    --{ "ellisonleao/gruvbox.nvim" },
+    { "morhetz/gruvbox" },
     { "blueshirts/darcula" },
 
     {

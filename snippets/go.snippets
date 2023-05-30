@@ -1,0 +1,49 @@
+# Full route
+snippet route
+	import "net/http"
+	import "html/template"
+    
+	type ${1}View struct {
+		${2} string
+	}
+
+	func Route_${1}(w http.ResponseWriter, r *http.Request) {
+
+		switch r.Method {
+		case "GET":
+			GET_${1}(w, r)
+			break
+		// TODO: Add HTTP methods
+		default:
+			w.WriteHeader(http.StatusNotFound)
+		}
+
+	}
+
+	func GET_${1}(w http.ResponseWriter, r *http.Request) {
+
+		session := Get_Session(r)
+		view := ${1}View{
+				// TODO: set view values
+				${0}
+			}
+
+		var tmpl *template.Template
+		if r.Header.Get("HX-Request") == "true" {
+			tmpl, _ = template.ParseFiles("htmx/${3:template}.html")
+			tmpl.Execute(w, view)
+		} else {
+			tmpl, _ = template.ParseFiles("htmx/index.html", "htmx/${3}.html")
+			home_view := HomeView{
+				UserName: session.UserName,
+				Style:    session.Style,
+				Content:  view,
+			}
+			tmpl.Execute(w, home_view)
+		}
+	}
+
+	func POST_${1}(w http.ResponseWriter, r *http.Request) {
+		// TODO: create a new item
+	}
+

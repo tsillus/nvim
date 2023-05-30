@@ -17,3 +17,10 @@ map("t", "<C-j>", "<C-w>j", {}) -- move window down
 map("n", "<leader>rv", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename Variable" })
 
 map("v", "p", '"_dP', {})
+
+map("n", "<leader>rw", "va{", { desc = "Mark Scope" })
+map("n", "<leader>r2w", "v2a{", { desc = "Mark Scope" })
+map("n", "<leader>rW", "va{V", { desc = "Mark Scope (full lines)" })
+map("n", "<leader>r2W", "v2a{V", { desc = "Mark Scope (full lines)" })
+
+map("i", "<C-o>", "<Esc>o")
