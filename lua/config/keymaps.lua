@@ -9,18 +9,53 @@ end
 
 map("n", "<leader>t", "<C-w>s<C-j>:terminal<cr>", { desc = "Open Terminal" })
 map("t", "<Esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-map("t", "<C-h>", "<C-w>h", {}) -- move window left
-map("t", "<C-l>", "<C-w>l", {}) -- move window right
-map("t", "<C-k>", "<C-w>k", {}) -- move window up
-map("t", "<C-j>", "<C-w>j", {}) -- move window down
-
-map("n", "<leader>rv", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename Variable" })
+map("t", "<C-h>", "<C-w>h", { desc = "Move To Left Window" }) -- move window left
+map("t", "<C-l>", "<C-w>l", { desc = "Move To Right Window" }) -- move window right
+map("t", "<C-k>", "<C-w>k", { desc = "Move To Upper Window" }) -- move window up
+map("t", "<C-j>", "<C-w>j", { desc = "Move To Lower Window" }) -- move window down
 
 map("v", "p", '"_dP', {})
 
-map("n", "<leader>rw", "va{", { desc = "Mark Scope" })
-map("n", "<leader>r2w", "v2a{", { desc = "Mark Scope" })
-map("n", "<leader>rW", "va{V", { desc = "Mark Scope (full lines)" })
-map("n", "<leader>r2W", "v2a{V", { desc = "Mark Scope (full lines)" })
-
 map("i", "<C-o>", "<Esc>o")
+
+local wk = require("which-key")
+--
+-- NORMAL mode
+--
+wk.register({
+    r = {
+        name = "+Refactor",
+        -- <leader>r*m : Mark a Scope
+        -- <leader>r*M : Mark a Scope, extend it to full lines
+        ["m"] = { "va{", "Mark Scope" },
+        ["M"] = { "va{V", "Mark Scope (full lines)" },
+        ["2"] = {
+            name = "+2 levels",
+            ["m"] = { "v2a{", "Mark Scope" },
+            ["M"] = { "v2a{V", "Mark Scope (full lines)" },
+        },
+        ["3"] = {
+            name = "+3 levels",
+            ["m"] = { "v3a{", "Mark Scope" },
+            ["M"] = { "v3a{V", "Mark Scope (full lines)" },
+        },
+    },
+    ["rr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename Symbol" },
+}, { prefix = "<leader>", mode = "n" })
+
+--
+-- VISUAL mode
+--
+wk.register({
+    s = {
+        name = "+Surround With",
+        ["("] = { "di()<Esc>P", "( ... )" },
+        [")"] = { "di()<Esc>P", "( ... )" },
+        ["["] = { "di[]<Esc>P", "[ ... ]" },
+        ["]"] = { "di[]<Esc>P", "[ ... ]" },
+        ["{"] = { "di{}<Esc>P", "{ ... }" },
+        ["}"] = { "di{}<Esc>P", "{ ... }" },
+        ["<"] = { "di<><Esc>P", "< ... >" },
+        [">"] = { "di<><Esc>P", "< ... >" },
+    },
+}, { prefix = "<leader>", mode = "x" })
