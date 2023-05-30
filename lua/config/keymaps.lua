@@ -59,3 +59,16 @@ wk.register({
         [">"] = { "di<><Esc>P", "< ... >" },
     },
 }, { prefix = "<leader>", mode = "x" })
+
+--
+-- Database
+--
+wk.register({
+    D = {
+        name = "Database",
+        u = { "<Cmd>DBUIToggle<Cr>", "Toggle UI" },
+        f = { "<Cmd>DBUIFindBuffer<Cr>", "Find buffer" },
+        r = { "<Cmd>DBUIRenameBuffer<Cr>", "Rename buffer" },
+        q = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
+    },
+}, { prefix = "<leader>", mode = "n" })

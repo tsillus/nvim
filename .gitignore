@@ -2,6 +2,7 @@ tt.*
 .tests
 doc/tags
 debug
+db_ui
 .repro
 foo.*
 *.log
