@@ -99,3 +99,56 @@ function colors {
 
 }
 
+
+function init([string]$step) {
+
+    if ($step -eq "1") {
+
+        # Install Chocolatey
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+
+        # Install Windows Terminal and PowerShell
+        winget install Microsoft.WindowsTerminal
+        winget install Microsoft.PowerShell
+        winget install Git
+
+        Write-Host "Step 1 finished. Reopen the Window and continue with step 2"
+        return
+    }
+
+    if ($step -eq "2") {
+
+        choco install lazygit -y
+        choco install make -y
+        choco install ripgrep -y
+        choco install fd -y
+        choco install llvm -y
+        choco install Cygwin -y
+
+        # TODO: change both to D:\nvim ?
+        setx XDG_CONFIG_HOME $env:LOCALAPPDATA
+        setx XDG_DATA_HOME $env:APPDATA
+
+        cd $env:XDG_CONFIG_HOME
+        mkdir ./nvim
+        cd ./nvim
+        git clone https://github.com/tsillus/nvim.git .
+
+        choco install neovim
+
+        Write-Host "Visit https://www.nerdfonts.com/font-downloads, download and install thefont you want to use in Terminal."
+        Write-Host "Step 2 Finished. Reopen the window and continue with step 3"
+        return
+    }
+
+    if($step -eq "3") {
+            nvim .
+        }
+
+
+
+
+
+
+}
