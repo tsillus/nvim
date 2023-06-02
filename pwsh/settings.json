@@ -1,12 +1,9 @@
-
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -21,8 +18,7 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -35,18 +31,14 @@
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "firstWindowPreference": "persistedWindowLayout",
     "initialRows": 35,
-    "profiles": 
-    {
-        "defaults": 
-        {
+    "profiles": {
+        "defaults": {
             "colorScheme": "Gruvbox Dark [Hard]"
         },
-        "list": 
-        [
+        "list": [
             {
-                "font": 
-                {
-                    "face": "DejaVuSansMono NFM"
+                "font": {
+                    "face": "JetBrainsMono NFM"
                 },
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
@@ -55,11 +47,10 @@
             },
             {
                 "colorScheme": "Gruvbox Dark [Soft]",
-                "commandline": "\"C:\\Users\\torst\\AppData\\Local\\Microsoft\\WindowsApps\\Microsoft.PowerShell_8wekyb3d8bbwe\\pwsh.exe\"",
+                "commandline": "pwsh.exe",
                 "elevate": true,
-                "font": 
-                {
-                    "face": "DejaVuSansMono NFM"
+                "font": {
+                    "face": "JetBrainsMono NFM"
                 },
                 "guid": "{3fa4844e-425b-455d-933f-e05744ab1911}",
                 "hidden": false,
@@ -68,24 +59,11 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "colorScheme": "Vintage",
+                "colorScheme": "Ubuntu-22.04-Colorscheme",
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
                 "name": "Ubuntu",
                 "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "closeOnExit": "never",
-                "commandline": "D:\\Programme\\cmder\\Cmder.exe",
-                "experimental.retroTerminalEffect": false,
-                "font": 
-                {
-                    "face": "DejaVu Sans Mono"
-                },
-                "guid": "{b942b3a5-4382-4045-b1cd-bf09e9e9f843}",
-                "hidden": false,
-                "icon": "D:\\Programme\\cmder\\icons\\cmder.ico",
-                "name": "CMDer"
             },
             {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -123,8 +101,7 @@
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#0C0C0C",
             "black": "#0C0C0C",
@@ -400,7 +377,32 @@
             "selectionBackground": "#FFFFFF",
             "white": "#C0C0C0",
             "yellow": "#808000"
+        },
+        {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-22.04-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
         }
     ],
+    "theme": "dark",
+    "windowingBehavior": "useExisting",
     "themes": []
 }

@@ -14,8 +14,12 @@ $global:projects = @{
 # the following 2 means 24 bit RGB color comes next
 $global:colors = @{
         "reset" = "`e[m"
-        "fgRed" = "`e[38;2;255;0;0m"
-        "bgRed" = "`e[48;2;255;0;0m"
+        "fgRed"        = "`e[38;2;255;0;0m"
+        "bgRed"        = "`e[48;2;255;0;0m"
+        "fgInfraBlue"  = "`e[38;2;17;136;204m"
+        "bgInfraBlue"  = "`e[48;2;17;136;204m"
+        "fgInfraGreen" = "`e[38;2;113;168;33m"
+        "bgInfraGreen" = "`e[48;2;113;168;33m"
     }
 
 
@@ -98,4 +102,12 @@ function colors {
 
 
 }
+
+
+function cwd {
+        $currentDirectory = (pwd).Path 
+        $currentDirectory | Set-Clipboard
+        Write-Host "Path copied to clipboard: " -NoNewline
+        Write-Host $currentDirectory -ForegroundColor Yellow
+    }
 
