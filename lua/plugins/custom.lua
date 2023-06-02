@@ -31,8 +31,11 @@ return {
     },
 
     -- colorschemes
-    --{ "ellisonleao/gruvbox.nvim" },
-    { "morhetz/gruvbox" },
+
+    {
+        "ellisonleao/gruvbox.nvim",
+        priority = 1000,
+    },
     { "blueshirts/darcula" },
 
     {
