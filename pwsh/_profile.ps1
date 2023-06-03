@@ -1,39 +1,85 @@
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
-Set-Alias lvim C:\Users\torst\.local\bin\lvim.ps1
-Set-Alias scrivener "C:\Program Files\Scrivener3.exe"
 
+# Write-Output "`e[38;2;113;168;33minfra`e[38;2;17;136;204mnaut`e[m"
 
-# shorthands for a couple of folders I want to navigate to quickly.
-$global:projects = @{
-        "cfg"   = "D:\nvim\lazyvim\nvim"
+$colors = @{
+        "python"    = "#006400"
+        "golang"    = "#00ADD8"
+        "odin"      = "#3882d2"
+        "infrablue" = "#1188cc"
+        "special"   = "#cc0079"
     }
-
 
 # collecting some favorite colors to use over time.
 # 38 means Foreground, 48 means Background
 # the following 2 means 24 bit RGB color comes next
-$global:colors = @{
+$global:text_colors = @{
         "reset" = "`e[m"
+        "bgWhite"      = "`e[48;2;255;255;255m"
         "fgRed"        = "`e[38;2;255;0;0m"
         "bgRed"        = "`e[48;2;255;0;0m"
         "fgInfraBlue"  = "`e[38;2;17;136;204m"
         "bgInfraBlue"  = "`e[48;2;17;136;204m"
         "fgInfraGreen" = "`e[38;2;113;168;33m"
         "bgInfraGreen" = "`e[48;2;113;168;33m"
-    }
+        
+}
+
+# TODO: a project will need these future values:
+#       title, color, cwd, command(?)
+#
+$global:projects = [ordered]@{
+    "cfg"           = @("nvim config",          $colors["special"],      "D:\nvim\lazyvim\nvim")
+}
 
 
-function project([string]$name) {
-    $projects = $global:projects
-    $maxKeyLength = ($projects.Keys | Measure-Object -Maximum -Property Length).Maximum
-    if ($projects.ContainsKey($name)) {
-        Set-Location $projects[$name]
+<# 
+.DESCRIPTION
+switches into a project folder defined in $global:projects. 
+Provides all possible keys when a non-existant project is requested.
+
+.PARAMETER name
+any key in $global:projects
+
+.PARAMETER open
+open the project in Neovim as well?
+
+.PARAMETER tabnew
+open project in a new tab?
+#>
+function project([string]$name, [switch]$open, [switch]$tabnew) {
+    $projects = $global:projects;
+    if ($projects.Contains($name)) {
+
+        $title      = $projects[$name][0];
+        $color      = $projects[$name][1];
+        $directory  = $projects[$name][2];
+        if ($tabnew) {
+            $command    = "";
+
+            if ($open) {
+                $command = "-c nvim .";
+            }
+
+            $command = "wt new-tab -d '$directory' --title '$title' --tabColor '$color' $command"
+            Write-Host $command
+            Invoke-expression $command
+        } else {
+
+            Set-Location $directory;
+            if ($open -eq $true) {
+                Invoke-Expression "nvim ."
+            }
+        }
+
     } else {
+        # Wrong input. Give some helpful information.
+        $maxKeyLength = ($projects.Keys | Measure-Object -Maximum -Property Length).Maximum
         Write-Host "Project does not exist. Available projects:" -ForegroundColor Yellow
         $global:projects.GetEnumerator() | ForEach-Object {
             $name = $_.Name
-            $dir = $_.Value
-            Write-Host ("`t{0,-$maxKeyLength} :`t {1}" -f $name, $dir)
+            $proj = $_.Value
+            Write-Host ("`t{0,-$maxKeyLength} :`t {1,-20}`t {2}" -f $name, $proj[0], $proj[2])
             
         }
         Write-Host "'nvim `$PROFILE'" -NoNewline -ForegroundColor Yellow
@@ -41,7 +87,14 @@ function project([string]$name) {
     }
 }
 
+<#
+.SYNOPSIS
+Defines the PowerShell prompt:
 
+    <user> @ <path> [<git-branch>]
+
+If <path> cotains more than folders, the least significant folders are abbreviated with a ".". 
+#>
 function prompt {
     $username = $env:USERNAME
     $location = $(Get-Location)
@@ -61,6 +114,7 @@ function prompt {
         } catch {}
     }
 
+
     Write-Host "$username" -NoNewline -ForegroundColor Magenta
     Write-Host " @ " -NoNewline
     Write-Host "$drive$path" -NoNewline -ForegroundColor Yellow
@@ -69,41 +123,10 @@ function prompt {
     return " "
 }
 
-
-# colors: 
-# Black Gray White
-# DarkRed Red DarkYellow Yellow
-# DarkBlue Blue DarkCyan Cyan
-# DarkGreen Green
-# DarkMagenta Magenta
-#
-function colors {
-    $c = $global:colors
-    Write-Host " " -NoNewline -BackgroundColor Black
-    Write-Host " " -NoNewline -BackgroundColor Gray
-    Write-Host " "            -BackgroundColor White
-
-    Write-Host " " -NoNewline -BackgroundColor DarkRed
-    Write-Host " " -NoNewline -BackgroundColor Red
-    Write-Host " " -NoNewline -BackgroundColor DarkYellow
-    Write-Host " "            -BackgroundColor Yellow
-
-    Write-Host " " -NoNewline -BackgroundColor DarkBlue
-    Write-Host " " -NoNewline -BackgroundColor Blue
-    Write-Host " " -NoNewline -BackgroundColor DarkCyan
-    Write-Host " "            -BackgroundColor Cyan
-
-    Write-Host " " -NoNewline -BackgroundColor DarkGreen
-    Write-Host " " -NoNewline -BackgroundColor Green
-    Write-Host " " -NoNewline -BackgroundColor DarkMagenta
-    Write-Host " "            -BackgroundColor Magenta
-
-    Write-Host "$($c.fgRed)Red Foreground$($c.reset)$($c.bgRed)Red Background"
-
-
-}
-
-
+<#
+.SYNOPSIS
+Prints the full current working directory and copies it into Clipboard
+#>
 function cwd {
         $currentDirectory = (pwd).Path 
         $currentDirectory | Set-Clipboard
@@ -111,9 +134,40 @@ function cwd {
         Write-Host $currentDirectory -ForegroundColor Yellow
     }
 
-function init([string]$step) {
+<#
+.SYNOPSIS
+activates a virtual environment when in the root folder of a python project.
+lists all possible virtual environments when the given one doesn't exist.
 
-    if ($step -eq "1") {
+.PARAMETER version
+python version as anumber. E.g. "311" for a python 3.11 environment in ./.venv311  
+#>
+function venv([string]$version) {
+    if ($version -eq $null) {
+        $version = ""
+    }
+    $folder = ".venv$version"
+    if(Test-Path -Path $folder) {
+        & "$folder\Scripts\activate"
+    } else {
+            Write-Host "./$folder not found" -ForegroundColor Red
+            Invoke-Expression "ls -Filter .venv*"
+        }
+}
+
+
+<#
+.SYNOPSIS
+Initializes a fresh Windows PC to work with a consistent Neovim setup
+
+.PARAMETER step
+    1 - Installs Chocolatey, Windows Terminal, PowerShell 7.x, and Git via wingit 
+    2 - Installs lazygit, make, ripgrep, fd, llvm, Cygwin via Chocolatey
+    3 - Starts neovim for the first time.
+    [default] Print this help
+#>
+function init([int]$step) {
+    if ($step -eq 1) {
 
         # Install Chocolatey
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
@@ -127,8 +181,7 @@ function init([string]$step) {
         Write-Host "Step 1 finished. Reopen the Window and continue with step 2"
         return
     }
-
-    if ($step -eq "2") {
+    if ($step -eq 2) {
 
         choco install lazygit -y
         choco install make -y
@@ -153,13 +206,11 @@ function init([string]$step) {
         return
     }
 
-    if($step -eq "3") {
-            nvim .
+    if($step -eq 3) {
+            Invoke-Expression "nvim ."
+            return
         }
 
-
-
-
-
-
+    Invoke-Expression "Get-Help init -Detailed"
 }
+
