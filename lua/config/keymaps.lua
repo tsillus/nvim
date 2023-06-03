@@ -7,7 +7,6 @@ local function map(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-map("n", "<leader>t", "<C-w>s<C-j>:terminal<cr>", { desc = "Open Terminal" })
 map("t", "<Esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 map("t", "<C-h>", "<C-w>h", { desc = "Move To Left Window" }) -- move window left
 map("t", "<C-l>", "<C-w>l", { desc = "Move To Right Window" }) -- move window right
@@ -41,6 +40,13 @@ wk.register({
         },
     },
     ["rr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename Symbol" },
+}, { prefix = "<leader>", mode = "n" })
+
+wk.register({
+    t = {
+        name = "+Terminal",
+        ["t"] = { "<C-w>s<C-j>:terminal<cr>", "Open Terminal ↓" },
+    },
 }, { prefix = "<leader>", mode = "n" })
 
 --
