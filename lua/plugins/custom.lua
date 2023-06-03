@@ -31,17 +31,10 @@ return {
     },
 
     -- colorschemes
-
-    {
-        "ellisonleao/gruvbox.nvim",
-        priority = 1000,
-    },
     { "blueshirts/darcula" },
 
     {
         "LazyVim/LazyVim",
-        opts = {
-            colorscheme = "gruvbox",
-        },
+        opts = {},
     },
 }

@@ -11,3 +11,5 @@ vim.wo.scrolloff = 8
 
 vim.opt.virtualedit = "onemore"
 vim.opt.numberwidth = 3
+
+vim.opt.termguicolors = true
