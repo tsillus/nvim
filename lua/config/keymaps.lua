@@ -17,6 +17,8 @@ map("v", "p", '"_dP', {})
 
 map("i", "<C-o>", "<Esc>o")
 
+map("i", "<expr> <TAB>", "pumvisible() ? '<C-y>' : '<TAB>'")
+
 local wk = require("which-key")
 --
 -- NORMAL mode

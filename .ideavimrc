@@ -1,0 +1,172 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=8
+set number relativenumber
+set clipboard=unnamed
+
+nnoremap Y y$
+vmap Y "+y
+" vnoremap p "0dP
+
+
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+" Do incremental searching.
+set incsearch
+set showmode
+set which-key
+set notimeout
+let g:WhichKey_DefaultDelay = 600
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+Plug 'tpope/vim-surround'
+Plug 'preservim/nerdtree'
+Plug 'michaeljsmith/vim-indent-object'
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+nmap <C-s> :w<cr>
+
+"" Map <leader>d to start debug
+let g:WhichKeyDesc_Execute = "<leader>x Execute"
+let g:WhichKeyDesc_ExecuteRun = "<leader>xr execute [R]un"
+nmap <leader>xr <Action>(Run)
+let g:WhichKeyDesc_ExecuteRerun = "<leader>xx e[X]ecute again"
+nmap <leader>xx <Action>(Rerun)
+let g:WhichKeyDesc_ExecuteDebug = "<leader>xd execute [D]ebug"
+nmap <leader>xd <Action>(Debug)
+let g:whichkeydesc_executeCancel = "<leader>xc [C]ancel execution"
+nmap <leader>xc<Action>(Stop)
+
+" [R]efactoring Code
+let g:WhichKeyDesc_Refactor = "<leader>r Refactor Code"
+let g:WhichKeyDesc_RefactorRename = "<leader>rr [R]ename Element"
+nmap <leader>rr <Action>(RenameElement)
+let g:WhichKeyDesc_RefactorVariable = "<leader>rv Introduce [V]ariable"
+nmap <leader>rv <Action>(IntroduceVariable)
+let g:WhichKeyDesc_RefactorInline = "<leader>rn I[n]line Variable"
+nmap <leader>rn <Action>(Inline)
+let g:WhichKeyDesc_RefactorFormat = "<leader>rf [F]ormat Code"
+nmap <leader>rf <Action>(ReformatCode)
+let g:WhichKeyDesc_RefactorParamter = "<leader>rp Introduce [P]arameter"
+nmap <leader>rp <Action>(IntroduceParameter)
+let g:WhichKeyDesc_RefactorMethod = "<leader>rm Extract [M]ethod"
+vmap <leader>rm <Action>(ExtractMethod)
+let g:WhichKeyDesc_RefactorSignature = "<leader>rs Change [S]ignature "
+nmap <leader>rs <Action>(ChangeSignature)
+
+" [R]un Configuration
+let g:WhichKeyDesc_RunConfiguration = "<leader>rc Edit Run [C]onfiguration"
+nmap <leader>rc <Action>(editRunConfigurations)
+
+" [M]otion enhancements
+nnoremap vi_ T_vt_
+nnoremap va_ F_vf_
+
+
+" Replace brackets/quotes
+
+" expand/shrink selection in visual mode.
+vmap } <Action>(EditorSelectWord)
+vmap { <Action>(EditorUnSelectWord)
+nnoremap <leader>{ va{V
+
+
+" Sidebar management
+let g:WhichKeyDesc_Window = "<leader>w Windows"
+let g:WhichKeyDesc_WindowProject = "<leader>wp Open [P]roject Folder"
+nmap <leader>wp :NERDTree<cr>
+let g:WhichKeyDesc_WindowSelectOpen = "<leader>wo Select [O]pen File"
+nmap <leader>wo <Action>(SelectInProjectView)
+let g:WhichKeyDesc_WindowDebug = "<leader>wb open De[b]ug Window"
+nmap <leader>wb <Action>(ActivateDebugToolWindow)
+let g:WhichKeyDesc_WindowCommit = "<leader>wc open [C]ommit Window"
+nmap <leader>wc <Action>(ActivateCommitToolWindow)
+let g:WhichKeyDesc_WindowDatebase = "<leader>wd open [D]atabase Window"
+nmap <leader>wd <Action>(ActivateDatabaseToolWindow)
+let g:WhichKeyDesc_WindowStucture = "<leader>ws open [S]tructure Window"
+nmap <leader>ws <Action>(ActivateStructureToolWindow)
+let g:WhichKeyDesc_WindowTerminal = "<leader>wt open [T]erminal Window"
+nmap <leader>wt <Action>(ActivateTerminalToolWindow)
+let g:WhichKeyDesc_WindowGit = "<leader>wg open [G]it Window"
+nmap <leader>wg <Action>(ActivateVersionControlToolWindow)
+let g:WhichKeyDesc_WindowExecute = "<leader>wx open e[X]ecute Window"
+nmap <leader>wx <Action>(ActivateRunToolWindow)
+let g:WhichKeyDesc_WindowJump = "<leader>wj [J]ump to Bookmark"
+nmap <leader>wj <Action>(ActivateBookmarksToolWindow)
+
+" [W]indow Activation
+let g:WhichKeyDesc_WindowRecent = "<leader>wr open [R]ecent File"
+nmap <leader>wr <Action>(RecentFiles)
+let g:WhichKeyDesc_WindowFind = "<leader>wf [F]ind Everywhere"
+nmap <leader>wf <Action>(SearchEverywhere)
+
+
+" [J]ump to Bookmarks
+let g:WhichKeyDesc_Jump = "<leader>j Jump to Bookmarks"
+let g:WhichKeyDesc_JumpMnemonic = "<leader>jm Toggle Bookmark with [M]nemonic"
+nmap <leader>jm <Action>(ToggleBookmarkWithMnemonic)
+let g:WhichKeyDesc_JumpToggle = "<leader>jt [T]oggle Bookmark"
+nmap <leader>jt <Action>(ToggleBookmark)
+let g:WhichKeyDesc_JumpGoto = "<leader>jj [J]ump to Bookmark"
+nmap <leader>jj <Action>(Bookmarks.Goto)
+
+
+
+" [B]uffer Management
+let g:WhichKeyDesc_Buffer = "<leader>b Buffer Management"
+let g:WhichKeyDesc_BufferDelete = "<leader>bd [d]elete Buffer"
+nmap <leader>bd <Action>(CloseContent)
+let g:WhichKeyDesc_BufferDeleteUnpinned = "<leader>bD [D]elete ALL Unpinned Buffers"
+nmap <leader>bD <Action>(CloseAllUnpinnedEditors)
+let g:WhichKeyDesc_BufferSplitV = "<leader>bs [S]plit Buffer to the right"
+nmap <leader>bs <Action>(SplitVertically)<C-h><Action>(CloseContent)<C-l>
+let g:WhichKeyDesc_BufferMerge = "<leader>bm [M]erge Buffers"
+nmap <leader>bm <Action>(Unsplit)
+let g:WhichKeyDesc_BufferMove = "<leader>bo [M]ove Buffer to other side"
+nmap <leader>bo <Action>(MoveEditorToOppositeTabGroup)
+let g:WhichKeyDesc_BufferPin = "<leader>bp [P]in Buffer"
+nmap <leader>bp <Action>(PinActiveEditorTab)
+
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+" [V]im IDE changes
+let g:WhichKeyDesc_Vim = "<leader>v Vim IDE"
+let g:WhichKeyDesc_VimVim = "<leader>vv reload [V]imRc"
+nmap <leader>vv <Action>(IdeaVim.ReloadVimRc.reload)
+let g:WhichKeyDesc_VimTheme = "<leader>vt change [T]heme"
+nmap <leader>vt <Action>(ChangeLaf)
+let g:WhichKeyDesc_VimNumbers = "<leader>vn toggle relative line [N]umbers"
+nnoremap <leader>vn :set relativenumber!<cr>
+
+" KJump Plugin
+nmap <leader><leader>f :action KJumpAction<cr>
+nmap f :action KJumpAction<cr>
+nmap F :action KJumpAction.Word1<cr>
+
+
+sethandler <C-c> v-x:ide n-i:vim
+
+ideavimsupport 'dialog'
