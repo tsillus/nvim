@@ -17,66 +17,42 @@ map("v", "p", '"_dP', {})
 
 map("i", "<C-o>", "<Esc>o")
 
-map("i", "<expr> <TAB>", "pumvisible() ? '<C-y>' : '<TAB>'")
+-- map("i", "<expr> <TAB>", "pumvisible() ? '<C-y>' : '<TAB>'")
 
 local wk = require("which-key")
 --
 -- NORMAL mode
 --
-wk.register({
-    r = {
-        name = "+Refactor",
-        -- <leader>r*m : Mark a Scope
-        -- <leader>r*M : Mark a Scope, extend it to full lines
-        ["m"] = { "va{", "Mark Scope" },
-        ["M"] = { "va{V", "Mark Scope (full lines)" },
-        ["2"] = {
-            name = "+2 levels",
-            ["m"] = { "v2a{", "Mark Scope" },
-            ["M"] = { "v2a{V", "Mark Scope (full lines)" },
-        },
-        ["3"] = {
-            name = "+3 levels",
-            ["m"] = { "v3a{", "Mark Scope" },
-            ["M"] = { "v3a{V", "Mark Scope (full lines)" },
-        },
-    },
-    ["rr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename Symbol" },
-}, { prefix = "<leader>", mode = "n" })
+wk.add({
+    mode = { "n" },
+    { "<leader>r", group = "+Refactor" },
+    { "<leader>rm", "va{", desc = "Mark Scope" },
+    { "<leader>rM", "va{V", desc = "Mark Scope (full lines" },
 
-wk.register({
-    t = {
-        name = "+Terminal",
-        ["t"] = { "<C-w>s<C-j>:terminal<cr>", "Open Terminal ↓" },
-    },
-}, { prefix = "<leader>", mode = "n" })
+    { "<leader>r2", group = "+2 levels" },
+    { "<leader>r2m", "v2a{", desc = "Mark Scope" },
+    { "<leader>r2M", "v2a{V", desc = "Mark Scope (full lines" },
 
---
--- VISUAL mode
---
-wk.register({
-    s = {
-        name = "+Surround With",
-        ["("] = { "di()<Esc>P", "( ... )" },
-        [")"] = { "di()<Esc>P", "( ... )" },
-        ["["] = { "di[]<Esc>P", "[ ... ]" },
-        ["]"] = { "di[]<Esc>P", "[ ... ]" },
-        ["{"] = { "di{}<Esc>P", "{ ... }" },
-        ["}"] = { "di{}<Esc>P", "{ ... }" },
-        ["<"] = { "di<><Esc>P", "< ... >" },
-        [">"] = { "di<><Esc>P", "< ... >" },
-    },
-}, { prefix = "<leader>", mode = "x" })
+    { "<leader>r3", group = "+3 levels" },
+    { "<leader>r3m", "v3a{", desc = "Mark Scope" },
+    { "<leader>r3M", "v3a{V", desc = "Mark Scope (full lines" },
+
+    { "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename Symbol" },
+})
+
+wk.add({
+    mode = { "n" },
+    { "<leader>t", group = "+Terminal" },
+    { "<leader>tt", "<C-w>s<C-j>:terminal<cr>", desc = "Open Terminal ↓" },
+})
 
 --
 -- Database
 --
-wk.register({
-    D = {
-        name = "Database",
-        u = { "<Cmd>DBUIToggle<Cr>", "Toggle UI" },
-        f = { "<Cmd>DBUIFindBuffer<Cr>", "Find buffer" },
-        r = { "<Cmd>DBUIRenameBuffer<Cr>", "Rename buffer" },
-        q = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
-    },
-}, { prefix = "<leader>", mode = "n" })
+wk.add({
+    mode = { "n" },
+    { "<leader>Du", "<Cmd>DBUIToggle<Cr>", desc = "Toggle UI" },
+    { "<leader>Df", "<Cmd>DBUIFindBuffer<Cr>", desc = "Find buffer" },
+    { "<leader>Dr", "<Cmd>DBUIRenameBuffer<Cr>", desc = "Rename buffer" },
+    { "<leader>Dq", "<Cmd>DBUILastQueryInfo<Cr>", desc = "Last query info" },
+})
