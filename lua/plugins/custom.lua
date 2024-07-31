@@ -29,6 +29,10 @@ return {
             },
         },
     },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+    },
+    { "L3MON4D3/LuaSnip" },
 
     -- colorschemes
     { "blueshirts/darcula" },
