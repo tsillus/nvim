@@ -7,8 +7,8 @@
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
-set scrolloff=8
-set number relativenumber
+set scrolloff=6
+"set number relativenumber
 set clipboard=unnamed
 
 nnoremap Y y$
@@ -18,12 +18,19 @@ vmap Y "+y
 
 nnoremap <SPACE> <Nop>
 let mapleader=" "
+set gdefault
 " Do incremental searching.
 set incsearch
 set showmode
 set which-key
 set notimeout
 let g:WhichKey_DefaultDelay = 600
+let g:WhichKey_ShowVimActions = "true"
+let g:WhichKey_ShowTypedSequence = "true"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+let g:WhichKey_SortCaseSensitive = "false"
+let g:WhichKey_FontFamily = "JetBrains Mono"
+let g:WhichKey_FontSize = 12
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
@@ -35,9 +42,16 @@ Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
 
+
+let g:WhichKeyDesc_Change = "c Change"
+let g:WhichKeyDesc_ChangeSurround = "cs Change [S]urround"
+let g:WhichKeyDesc_Delete = "d Delete"
+let g:WhichKeyDesc_DeleteSurround = "ds Delete [S]urround"
+
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'michaeljsmith/vim-indent-object'
+
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
@@ -47,16 +61,26 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 nmap <C-s> :w<cr>
 
-"" Map <leader>d to start debug
+let g:WhichKeyDesc_Error = "<leader>e Error"
+let g:WhichKeyDesc_ErrorNext = "<leader>ej Next Error"
+nmap <leader>ej <Action>(GotoNextError)
+let g:WhichKeyDesc_ErrorPrevious = "<leader>ek Previous Error"
+nmap <leader>ek <Action>(GotoPreviousError)
+
+" e[x]ecuting code
 let g:WhichKeyDesc_Execute = "<leader>x Execute"
 let g:WhichKeyDesc_ExecuteRun = "<leader>xr execute [R]un"
 nmap <leader>xr <Action>(Run)
 let g:WhichKeyDesc_ExecuteRerun = "<leader>xx e[X]ecute again"
 nmap <leader>xx <Action>(Rerun)
+let g:WhichKeyDesc_ExecuteBreakpoint "<leader>xb toggle [B]reakpoint
+nmap <leader>xb <Action>(ToggleLineBreakpoint)
 let g:WhichKeyDesc_ExecuteDebug = "<leader>xd execute [D]ebug"
 nmap <leader>xd <Action>(Debug)
-let g:whichkeydesc_executeCancel = "<leader>xc [C]ancel execution"
+let g:WhichKeyDesc_executeCancel = "<leader>xc [C]ancel execution"
 nmap <leader>xc<Action>(Stop)
+let g:WhichKeyDesc_executeClass = "<leader>xf execute [F]ile"
+nmap <leader>xf <Action>(RunClass)
 
 " [R]efactoring Code
 let g:WhichKeyDesc_Refactor = "<leader>r Refactor Code"
@@ -68,28 +92,41 @@ let g:WhichKeyDesc_RefactorInline = "<leader>rn I[n]line Variable"
 nmap <leader>rn <Action>(Inline)
 let g:WhichKeyDesc_RefactorFormat = "<leader>rf [F]ormat Code"
 nmap <leader>rf <Action>(ReformatCode)
-let g:WhichKeyDesc_RefactorParamter = "<leader>rp Introduce [P]arameter"
+let g:WhichKeyDesc_RefactorParameter = "<leader>rp Introduce [P]arameter"
 nmap <leader>rp <Action>(IntroduceParameter)
-let g:WhichKeyDesc_RefactorMethod = "<leader>rm Extract [M]ethod"
-vmap <leader>rm <Action>(ExtractMethod)
+let g:WhichKeyDesc_RefactorMethod = "<leader>re Extract [M]ethod"
+vmap <leader>re <Action>(ExtractMethod)
+map <leader>re <Action>(ExtractMethod)
+
+let g:WhichKeyDesc_RefactorMove = "<leader>rm [M]ove"
+vmap <leader>rm <Action>(Move)
+nmap <leader>rm <Action>(Move)
 let g:WhichKeyDesc_RefactorSignature = "<leader>rs Change [S]ignature "
 nmap <leader>rs <Action>(ChangeSignature)
+let g:WhichKeyDesc_RefactorUppercase = "<leader>rU change [U]PPERCASE"
+nmap <leader>rU viwU
+let g:WhichKeyDesc_RefactorLowercase = "<leader>ru change [u]ppercase"
+nmap <leader>ru viwu
+
 
 " [R]un Configuration
 let g:WhichKeyDesc_RunConfiguration = "<leader>rc Edit Run [C]onfiguration"
 nmap <leader>rc <Action>(editRunConfigurations)
 
-" [M]otion enhancements
-nnoremap vi_ T_vt_
-nnoremap va_ F_vf_
+" [T]ext Makros
+let g:WhichKeyDesc_Text = "<leader>t Text Makros"
+let g:WhichKeyDesc_TextRstHeader2 = "<leader>th Underline current line with char"
+nmap <leader>th yypVr
+let g:WhichKeyDesc_TestRstHeader1 = "<leader>tH Under- and Overline current line with char"
+function! H:Header()
+    let char = getchar()
+    return "yypVr" . char . "yykP"
+
+endfunction
+nnoremap <leader>tH <SID>Header()
 
 
-" Replace brackets/quotes
 
-" expand/shrink selection in visual mode.
-vmap } <Action>(EditorSelectWord)
-vmap { <Action>(EditorUnSelectWord)
-nnoremap <leader>{ va{V
 
 
 " Sidebar management
@@ -114,6 +151,8 @@ let g:WhichKeyDesc_WindowExecute = "<leader>wx open e[X]ecute Window"
 nmap <leader>wx <Action>(ActivateRunToolWindow)
 let g:WhichKeyDesc_WindowJump = "<leader>wj [J]ump to Bookmark"
 nmap <leader>wj <Action>(ActivateBookmarksToolWindow)
+let g:WhichKeyDesc_WindowQuickNotes = "<leader>wn open [N]otes"
+nmap <leader>wn <Action>(ActivateQuickNotesToolWindow)
 
 " [W]indow Activation
 let g:WhichKeyDesc_WindowRecent = "<leader>wr open [R]ecent File"
@@ -153,7 +192,7 @@ nmap <leader>bp <Action>(PinActiveEditorTab)
 "map \b <Action>(ToggleLineBreakpoint)
 
 " [V]im IDE changes
-let g:WhichKeyDesc_Vim = "<leader>v Vim IDE"
+let g:WhichKeyDesc_VimIDE = "<leader>v Vim IDE"
 let g:WhichKeyDesc_VimVim = "<leader>vv reload [V]imRc"
 nmap <leader>vv <Action>(IdeaVim.ReloadVimRc.reload)
 let g:WhichKeyDesc_VimTheme = "<leader>vt change [T]heme"
@@ -161,10 +200,62 @@ nmap <leader>vt <Action>(ChangeLaf)
 let g:WhichKeyDesc_VimNumbers = "<leader>vn toggle relative line [N]umbers"
 nnoremap <leader>vn :set relativenumber!<cr>
 
+
+" [M]otion enhancements
+""nmap vi_ T_vt_
+""nmap va_ F_vf_
+
+" expand/shrink selection in visual mode.
+vmap } <Action>(EditorSelectWord)
+vmap { <Action>(EditorUnSelectWord)
+nnoremap <leader>{ vi{V
+nnoremap <leader>} va{V
+
+" Some neat tricks
+" add , to to the end of a line
+let g:WhichKeyDesc_TrailingComma = "<C-Comma> Add trailing ,"
+nnoremap <c-,> m`$a,<esc>``
+inoremap <c-,> <esc>m`$a,<esc>``
+
+let g:WhichKeyDesc_TrailingSemicolon = "<C-S-Comma> Add trailing ;"
+nnoremap <c-s-,> m`$a;<esc>``
+inoremap <c-s-,> <esc>m`$a;<esc>``
+
+let g:WhichKeyDesc_TrailingColon = "<C-S-Period> Add trailing ."
+nnoremap <c-s-.> m`$a;<esc>``
+inoremap <c-s-.> <esc>m`$a;<esc>``
+
+
+" [C]ode Manipulation
+let g:WhichKeyDesc_Duplicate = "<leader>cd [D]uplicate"
+nnoremap <leader>cd :t.<cr>
+let g:WhichKeyDesc_DuplicateComment = "<leader>cc [C]reate [C]omment of current line
+nmap <leader>cc :t.<cr>kgcc
+
+
+
+" [M]enu Popups
+let g:WhichKey_Menu = "<leader>m Menus"
+nnoremap <leader>m<leader> :action MainToolBar<cr>
+nnoremap <leader>mm :action MainMenu<cr>
+nnoremap <leader>mf :action FileMenu<cr>
+nnoremap <leader>me :action EditMenu<cr>
+nnoremap <leader>mc :action CodeMenu<cr>
+nnoremap <leader>mv :action ViewMenu<cr>
+nnoremap <leader>mr :action RefactoringMenu<cr>
+nnoremap <leader>mx :action RunMenu<cr>
+nnoremap <leader>mt :action ToolsMenu<cr>
+nnoremap <leader>mg :action Git.Menu<cr>
+nnoremap <leader>mw :action WindowMenu<cr>
+nnoremap <leader>mh :action HelpMenu<cr>
+
+
+
+
 " KJump Plugin
 nmap <leader><leader>f :action KJumpAction<cr>
-nmap f :action KJumpAction<cr>
-nmap F :action KJumpAction.Word1<cr>
+nmap <A-f> :action KJumpAction<cr>
+nmap <A-S-F> :action KJumpAction.Word1<cr>
 
 
 sethandler <C-c> v-x:ide n-i:vim
